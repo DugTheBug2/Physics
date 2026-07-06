@@ -1,3 +1,26 @@
+class bpiece{
+    constructor(obj, type,load) {
+        this.type = type;
+        this.obj = obj;
+        this.load = this.load;
+    }
+    get_limit(){
+        if (this.type == "wood"){
+            return  100
+        }
+        if (this.type == "steel"){
+            return  200
+        }
+    }
+}
+
+
+
+
+/*
+Pressure = Force/Area
+*/
+
 const config = {
     type: Phaser.AUTO,
     width: 800,
@@ -103,7 +126,9 @@ function create() {
         const worldX = gridX * size + size / 2;
         const worldY = gridY * size + size / 2;
         grid[gridX][gridY] = this.add.rectangle(worldX, worldY, size, size, 0xff8700);
+        this.matter.add.gameObject(grid[gridX][gridY], { isStatic: true });
         grid[gridX][gridY].checked = false;
+        grid[gridX][gridY].loadcapacity = 100;
         //alert(grid[gridX][gridY].groupid);
         this.add.rectangle(worldX, worldY, size, size, 0xff8700);
         updatebridge(grid,gridX,gridY);
@@ -113,9 +138,9 @@ function create() {
     cursors = this.input.keyboard.createCursorKeys();
 
     // Ground
-    const ground = this.add.rectangle(400, 400, 800, 40, 0x00aa00);
-    this.matter.add.gameObject(ground, { isStatic: true });
-    ground.body.label = "bridge";
+    //const ground = this.add.rectangle(400, 400, 800, 40, 0x00aa00);
+    //this.matter.add.gameObject(ground, { isStatic: true });
+    //ground.body.label = "bridge";
 
     // Player
     player = this.add.rectangle(400, 100, 50, 50, 0x00ffff);
@@ -151,9 +176,9 @@ function update() {
         }
         //console.log(pair.bodyA.label);
         //console.log(pair.bodyB.label);
-        /*if (weight >= 100){
+        if (weight >= 100){
             console.log("success");
-        }*/
+        }
         });
 
     });
