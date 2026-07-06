@@ -1,8 +1,8 @@
 const config = {
     type: Phaser.AUTO,
     width: 800,
-    height: 600,
-    backgroundColor: "#222",
+    height: 800,
+    backgroundColor: "#ff0000",
 
     physics: {
         default: "matter",
@@ -18,16 +18,98 @@ const config = {
     }
 };
 
-const game = new Phaser.Game(config);
+function updatebridge(grid,a,b,id){
+    let op = []
+    /*if (grid[a][b] != 0 && grid[a][b].checked == false){
+        grid[a][b].checked = true;
+        grid[a][b].bridgeid = 5 
+    }*/
 
+    if (grid[a][b-1] != 0 && grid[a][b-1].checked == false){
+        grid[a][b-1].checked = true;
+        grid[a][b-1].bridgeid = 5 
+        updatebridge(grid,a,b-1)
+    }
+    if (grid[a][b+1] != 0 && grid[a][b+1].checked == false){
+        grid[a][b+1].checked = true;
+        grid[a][b+1].bridgeid = 5 
+        updatebridge(grid,a,b+1)
+    }
+    if (grid[a-1][b] != 0 && grid[a-1][b].checked == false){
+        grid[a-1][b].checked = true;
+        grid[a-1][b].bridgeid = 5 
+        updatebridge(grid,a-1,b)
+    }
+    if (grid[a+1][b] != 0 && grid[a+1][b].checked == false){
+        grid[a+1][b].checked = true;
+        grid[a+1][b].bridgeid = 5 
+        updatebridge(grid,a+1,b)
+    }
+    console.log("S")
+    for(let x = 0;x<8;x++){
+        op.push([]);
+        for(let y = 0;y<8;y++){
+            if (grid[x][y] != 0){
+               console.log(grid[x][y].bridgeid,x,y)
+               op[x][y] = grid[x][y].bridgeid
+            }
+            else{
+                op[x][y] = 0;
+            }
+        }
+    }
+    console.log("E")
+    console.log(op);
+    console.log("A")
+}
+const game = new Phaser.Game(config);
+let grid = [];
+for(let x = 0;x<8;x++){
+    grid.push([]);
+    for(let y = 0;y<8;y++){
+        grid[x].push(0);
+    }
+}
+//console.log(grid);
 let player;
 let cursors;
-
+let mx;
+let my;
 //Physics
 //let weight = 0;
 let breakingpoint = 100;
 function create() {
+    //MOUSE
+    mx = this.add.text(200, 100, "wow",{fontSize:`${12}px`});
+    my = this.add.text(300, 100, "wow",{fontSize:`${12}px`}); 
 
+
+    /*this.input.on('pointermove', pointer => {
+        let x = pointer.worldX;
+        let y = pointer.worldY;
+        console.log(Math.round(x/100),Math.round(y/100));
+        mx.text = pointer.worldX;
+        my.text = pointer.worldY;
+
+    });*/
+
+
+    this.input.on('pointerdown', pointer => {
+        const size = 100;
+
+        const gridX = Math.floor(pointer.worldX / size);
+        const gridY = Math.floor(pointer.worldY / size);
+
+        const worldX = gridX * size + size / 2;
+        const worldY = gridY * size + size / 2;
+        grid[gridX][gridY] = this.add.rectangle(worldX, worldY, size, size, 0xff8700);
+        grid[gridX][gridY].checked = false;
+        //alert(grid[gridX][gridY].groupid);
+        this.add.rectangle(worldX, worldY, size, size, 0xff8700);
+        updatebridge(grid,gridX,gridY);
+
+    });
+    
     cursors = this.input.keyboard.createCursorKeys();
 
     // Ground
@@ -51,7 +133,7 @@ function create() {
     player2.setFriction(0.05);
 
     // Platform
-    const platform = this.add.rectangle(550, 350, 200, 20, 0xff8800);
+    const platform = this.add.rectangle(550, 350, 200, 20, 0xff8700);
     platform.type = "yikes"
     this.matter.add.gameObject(platform, { isStatic: true });
 }
@@ -59,27 +141,27 @@ function create() {
 function update() {
     let weight = 0;
     this.matter.world.on("collisionstart", (event) => {
-
+    //console.log(grid);
     event.pairs.forEach((pair) => {
 
-        console.log("Collision!");
+        //console.log("Collision!");
         if(pair.bodyB.label != "bridge"){
             //alert("w")
             weight += 50;
         }
-        console.log(pair.bodyA.label);
-        console.log(pair.bodyB.label);
-        if (weight >= 100){
-            alert("success");
-        }
+        //console.log(pair.bodyA.label);
+        //console.log(pair.bodyB.label);
+        /*if (weight >= 100){
+            console.log("success");
+        }*/
         });
 
     });
-    console.log(weight);
+    //console.log(weight);
 
 
 
-
+ 
 
 
     const speed = 5;
