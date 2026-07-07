@@ -40,37 +40,29 @@ const config = {
         update
     }
 };
-
-function updatebridge(grid,a,b,id){
-    let op = []
+function bridgecap(op){
+    let count = 0;
+    for(let x = 0;x<8;x++){
+        for(let y = 0;y<8;y++){
+            if (op[x][y] == 1){
+                count += 1
+            }        
+        }
+    }
+    return count;
+}
+function updatebridge(grid,c,d,id){
+    let op = [];
+    let did = 1;
     /*if (grid[a][b] != 0 && grid[a][b].checked == false){
         grid[a][b].checked = true;
-        grid[a][b].bridgeid = 5 
+        grid[a][b].bridgeid = id
     }*/
-
-    if (grid[a][b-1] != 0 && grid[a][b-1].checked == false){
-        grid[a][b-1].checked = true;
-        grid[a][b-1].bridgeid = 5 
-        updatebridge(grid,a,b-1)
-    }
-    if (grid[a][b+1] != 0 && grid[a][b+1].checked == false){
-        grid[a][b+1].checked = true;
-        grid[a][b+1].bridgeid = 5 
-        updatebridge(grid,a,b+1)
-    }
-    if (grid[a-1][b] != 0 && grid[a-1][b].checked == false){
-        grid[a-1][b].checked = true;
-        grid[a-1][b].bridgeid = 5 
-        updatebridge(grid,a-1,b)
-    }
-    if (grid[a+1][b] != 0 && grid[a+1][b].checked == false){
-        grid[a+1][b].checked = true;
-        grid[a+1][b].bridgeid = 5 
-        updatebridge(grid,a+1,b)
-    }
-    console.log("S")
+   console.log(grid)
     for(let x = 0;x<8;x++){
         op.push([]);
+    }
+    for(let x = 0;x<8;x++){
         for(let y = 0;y<8;y++){
             if (grid[x][y] != 0){
                console.log(grid[x][y].bridgeid,x,y)
@@ -79,11 +71,116 @@ function updatebridge(grid,a,b,id){
             else{
                 op[x][y] = 0;
             }
+            /*if(grid[x][y] != 0 && grid[x][y].bridgeid == undefined){
+                grid[x][y].checked = true
+                console.log(grid[x][y].bridgeid)
+                updatebridg
+                e(grid,x,y,id+1)
+            }*/
+
+            
         }
     }
-    console.log("E")
+    for(let a = 0;a<8;a++){
+        for(let b = 0;b<8;b++){
+            grid[a][b].bridgeid = did
+            if (grid[a][b] != 0 && grid[a][b].bridgeid == 1){
+                if (grid[a][b-1] != 0 && grid[a][b-1].checked == false){
+                    grid[a][b-1].checked = true;
+                    grid[a][b-1].bridgeid = grid[a][b].bridgeid
+                    updatebridge(grid,a,b-1,grid[a][b].bridgeid)
+                }
+                if (grid[a][b+1] != 0 && grid[a][b+1].checked == false){
+                    grid[a][b+1].checked = true;
+                    grid[a][b+1].bridgeid = grid[a][b].bridgeid
+                    updatebridge(grid,a,b+1,grid[a][b].bridgeid)
+                }
+                if (grid[a-1][b] != 0 && grid[a-1][b].checked == false){
+                    grid[a-1][b].checked = true;
+                    grid[a-1][b].bridgeid = grid[a][b].bridgeid 
+                    updatebridge(grid,a-1,b,grid[a][b].bridgeid)
+                }
+                if (grid[a+1][b] != 0 && grid[a+1][b].checked == false){
+                    grid[a+1][b].checked = true;
+                    grid[a+1][b].bridgeid = grid[a][b].bridgeid
+                    updatebridge(grid,a+1,b,grid[a][b].bridgeid)
+                } 
+                
+            }
+            if (grid[a][b] != 0 && grid[a][b].bridgeid != 1){
+                did += 1;
+                if (grid[a][b-1] != 0 && grid[a][b-1].checked == false){
+                    grid[a][b-1].checked = true;
+                    grid[a][b-1].bridgeid = grid[a][b].bridgeid
+                    updatebridge(grid,a,b-1,grid[a][b].bridgeid)
+                }
+                if (grid[a][b+1] != 0 && grid[a][b+1].checked == false){
+                    grid[a][b+1].checked = true;
+                    grid[a][b+1].bridgeid = grid[a][b].bridgeid
+                    updatebridge(grid,a,b+1,grid[a][b].bridgeid)
+                }
+                if (grid[a-1][b] != 0 && grid[a-1][b].checked == false){
+                    grid[a-1][b].checked = true;
+                    grid[a-1][b].bridgeid = grid[a][b].bridgeid 
+                    updatebridge(grid,a-1,b,grid[a][b].bridgeid)
+                }
+                if (grid[a+1][b] != 0 && grid[a+1][b].checked == false){
+                    grid[a+1][b].checked = true;
+                    grid[a+1][b].bridgeid = grid[a][b].bridgeid
+                    updatebridge(grid,a+1,b,grid[a][b].bridgeid)
+                } 
+            }
+            /*if (grid[a][b-1] != 0 && grid[a][b-1].checked == false){
+                grid[a][b-1].checked = true;
+                grid[a][b-1].bridgeid = id
+                updatebridge(grid,a,b-1,id)
+            }
+            if (grid[a][b+1] != 0 && grid[a][b+1].checked == false){
+                grid[a][b+1].checked = true;
+                grid[a][b+1].bridgeid = id
+                updatebridge(grid,a,b+1,id)
+            }
+            if (grid[a-1][b] != 0 && grid[a-1][b].checked == false){
+                grid[a-1][b].checked = true;
+                grid[a-1][b].bridgeid = id 
+                updatebridge(grid,a-1,b,id)
+            }
+            if (grid[a+1][b] != 0 && grid[a+1][b].checked == false){
+                grid[a+1][b].checked = true;
+                grid[a+1][b].bridgeid = id
+                updatebridge(grid,a+1,b,id)
+            }
+        }*/
+        }
+    }
+    did += 1
+    //console.log(id)
+    /*if (grid[a][b-1] != 0 && grid[a][b-1].checked == false){
+        grid[a][b-1].checked = true;
+        grid[a][b-1].bridgeid = id
+        updatebridge(grid,a,b-1,id)
+    }
+    if (grid[a][b+1] != 0 && grid[a][b+1].checked == false){
+        grid[a][b+1].checked = true;
+        grid[a][b+1].bridgeid = id
+        updatebridge(grid,a,b+1,id)
+    }
+    if (grid[a-1][b] != 0 && grid[a-1][b].checked == false){
+        grid[a-1][b].checked = true;
+        grid[a-1][b].bridgeid = id 
+        updatebridge(grid,a-1,b,id)
+    }
+    if (grid[a+1][b] != 0 && grid[a+1][b].checked == false){
+        grid[a+1][b].checked = true;
+        grid[a+1][b].bridgeid = id
+        updatebridge(grid,a+1,b,id)
+    }*/
+    //console.log("S")
+
+    //console.log("E")
     console.log(op);
-    console.log("A")
+   // console.log("A")
+   return op;
 }
 const game = new Phaser.Game(config);
 let grid = [];
@@ -92,20 +189,19 @@ for(let x = 0;x<8;x++){
     for(let y = 0;y<8;y++){
         grid[x].push(0);
     }
+
 }
 //console.log(grid);
 let player;
 let cursors;
 let mx;
+let count;
 let my;
 //Physics
 //let weight = 0;
 let breakingpoint = 100;
 function create() {
-    //MOUSE
-    mx = this.add.text(200, 100, "wow",{fontSize:`${12}px`});
-    my = this.add.text(300, 100, "wow",{fontSize:`${12}px`}); 
-
+    let op = null;
 
     /*this.input.on('pointermove', pointer => {
         let x = pointer.worldX;
@@ -131,7 +227,9 @@ function create() {
         grid[gridX][gridY].loadcapacity = 100;
         //alert(grid[gridX][gridY].groupid);
         this.add.rectangle(worldX, worldY, size, size, 0xff8700);
-        updatebridge(grid,gridX,gridY);
+        op = updatebridge(grid,gridX,gridY,1);
+        ccount = bridgecap(op);
+
 
     });
     
@@ -176,7 +274,8 @@ function update() {
         }
         //console.log(pair.bodyA.label);
         //console.log(pair.bodyB.label);
-        if (weight >= 100){
+        console.log(count*50)
+        if (weight >= count*50){
             console.log("success");
         }
         });
