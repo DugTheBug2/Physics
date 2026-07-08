@@ -207,7 +207,22 @@ let piece = "block";
 let breakingpoint = 100;
 function create() {
     let op = null;
+    for(let x=0;x<16;x++){
+        for(let y=0;y<16;y++){
+            console.log(x,y)
+            if(grid[x][y] == "wood"){
+                //alert("test")
+            
+                const size = width/resolution;
 
+            
+
+
+                this.add.rectangle(x*size, y*size, size, size, 0x3C27F5);
+
+            }
+    } 
+    }
     /*this.input.on('pointermove', pointer => {
         let x = pointer.worldX;
         let y = pointer.worldY;
@@ -226,14 +241,15 @@ function create() {
 
         const worldX = gridX * size + size / 2;
         const worldY = gridY * size + size / 2;
-        grid[gridX][gridY] = this.add.rectangle(worldX, worldY, size, size, 0xff8700);
+        grid[gridX][gridY] = "wood"
+        //this.add.rectangle(worldX, worldY, size, size, 0xff8700);
         this.matter.add.gameObject(grid[gridX][gridY], { isStatic: true });
         grid[gridX][gridY].checked = false;
         grid[gridX][gridY].loadcapacity = 100;
         //alert(grid[gridX][gridY].groupid);
-        this.add.rectangle(worldX, worldY, size, size, 0xff8700);
-        op = updatebridge(grid,gridX,gridY,1);
-        ccount = bridgecap(op);
+        //this.add.rectangle(worldX, worldY, size, size, 0xff8700);
+        //op = updatebridge(grid,gridX,gridY,1);
+        //ccount = bridgecap(op);
 
 
     });
@@ -291,22 +307,7 @@ function update() {
     //console.log(weight);
 
 
-    for(let x=0;x<16,x++;){
-        for(let y=0;y<16,y++;){
-            console.log(x,y)
-            if(grid[x][y] == 0){
-                //alert("test")
-            
-                const size = width/resolution;
 
-            
-
-
-                this.add.rectangle(x*size, y*size, size, size, 0x3C27F5);
-
-            }
-    } 
-    }
  
 
 
