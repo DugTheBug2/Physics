@@ -3,7 +3,7 @@ let width = 400;
 let resolution = 16
 
 class bpiece{
-    constructor(obj, type,load) {
+    constructor(obj,type,mload,cload) {
         this.type = type;
         this.obj = obj;
         this.mload = mload;
@@ -24,12 +24,12 @@ function upbridge(SCENE){
     for(let x=0;x<16;x++){
         for(let y=0;y<16;y++){
             console.log(x,y)
-            if(grid[x][y] == "wood"){
+            if(grid[x][y].type == "wood"){
                 //alert("test")
                 const size = width/resolution;
                 SCENE.add.rectangle(x*size, y*size, size, size, 0x854900);
             }
-             if(grid[x][y] == "steel"){
+             if(grid[x][y].type  == "steel"){
                 //alert("test")
                 const size = width/resolution;
                 SCENE.add.rectangle(x*size, y*size, size, size, 0x7D7D7D);
@@ -249,19 +249,18 @@ function create() {
         const worldX = gridX * size + size / 2;
         const worldY = gridY * size + size / 2;
         if(piece == 1) {
-            grid[gridX][gridY] = "wood" 
+            grid[gridX][gridY] = bpiece(0,"wood",100,0);
         }
         if(piece == 2){
-            grid[gridX][gridY] = "steel" 
+            grid[gridX][gridY] = bpiece(0,"steel",100,0);
         }
         if(piece == 3){
-            grid[gridX][gridY] = "plastic"
+            grid[gridX][gridY] = bpiece(0,"plastic",100,0);
         }
         //grid[gridX][gridY] = "wood"
         //this.add.rectangle(worldX, worldY, size, size, 0xff8700);
         //this.matter.add.gameObject(grid[gridX][gridY], { isStatic: true });
         grid[gridX][gridY].checked = false;
-        grid[gridX][gridY].loadcapacity = 100;
         //alert(grid[gridX][gridY].groupid);
         //this.add.rectangle(worldX, worldY, size, size, 0xff8700);
         op = updatebridge(grid,gridX,gridY,1);
