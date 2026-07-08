@@ -291,20 +291,18 @@ function update() {
     //console.log(weight);
 
 
-    for(let x=0;x<16,x++;){
-        for(let y=0;y<16,y++;){
-            console.log(x,y)
+    for(let x=0;x<16;x++){
+        for(let y=0;y<16;y++){
+            //console.log(x,y)
             if(grid[x][y] == 0){
-                alert("test")
+                //alert("test")
             
                 const size = width/resolution;
 
-                const gridX = Math.floor(pointer.worldX / size);
-                const gridY = Math.floor(pointer.worldY / size);
+            
 
-                const worldX = gridX * size + size / 2;
-                const worldY = gridY * size + size / 2;
-                this.add.rectangle(x*size, y*size, size, size, 0xff8700);
+
+                this.add.rectangle(x*size, y*size, size, size, 0x3C27F5);
 
             }
     } 
