@@ -291,9 +291,9 @@ function update() {
     //console.log(weight);
 
 
-    for(let x=0;x<16;x++){
-        for(let y=0;y<16;y++){
-            //console.log(x,y)
+    for(let x=0;x<16,x++;){
+        for(let y=0;y<16,y++;){
+            console.log(x,y)
             if(grid[x][y] == 0){
                 //alert("test")
             
