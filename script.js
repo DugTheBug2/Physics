@@ -6,7 +6,8 @@ class bpiece{
     constructor(obj, type,load) {
         this.type = type;
         this.obj = obj;
-        this.load = this.load;
+        this.mload = mload;
+        this.cload = cload;
     }
     get_limit(){
         if (this.type == "wood"){
@@ -200,7 +201,7 @@ function updatebridge(grid,c,d,id){
     //console.log("S")
 
     //console.log("E")
-    console.log(op);
+   alert(op);
    // console.log("A")
    return op;
 }
@@ -261,7 +262,7 @@ function create() {
         grid[gridX][gridY].loadcapacity = 100;
         //alert(grid[gridX][gridY].groupid);
         //this.add.rectangle(worldX, worldY, size, size, 0xff8700);
-        //op = updatebridge(grid,gridX,gridY,1);
+        op = updatebridge(grid,gridX,gridY,1);
         //ccount = bridgecap(op);
         //
         //window.alert(5);
