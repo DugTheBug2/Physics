@@ -19,7 +19,14 @@ class bpiece{
     }
 }
 
-
+function weightdistribution(piece,list){
+    for(let x = 0;x<resolution;x++){
+        for(let y = 0;y<resolution;y++){
+            list[x-1][y]           
+        }
+        
+    }
+}
 function upbridge(SCENE){
     for(let x=0;x<16;x++){
         for(let y=0;y<16;y++){
