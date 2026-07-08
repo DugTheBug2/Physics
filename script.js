@@ -19,7 +19,25 @@ class bpiece{
 }
 
 
+function upbridge(this){
+    for(let x=0;x<16;x++){
+        for(let y=0;y<16;y++){
+            console.log(x,y)
+            if(grid[x][y] == "wood"){
+                //alert("test")
+            
+                const size = width/resolution;
 
+            
+
+
+                this.add.rectangle(x*size, y*size, size, size, 0x3C27F5);
+
+            }
+    } 
+    }
+}
+    
 
 /*
 Pressure = Force/Area
@@ -207,22 +225,7 @@ let piece = "block";
 let breakingpoint = 100;
 function create() {
     let op = null;
-    for(let x=0;x<16;x++){
-        for(let y=0;y<16;y++){
-            console.log(x,y)
-            if(grid[x][y] == "wood"){
-                //alert("test")
-            
-                const size = width/resolution;
-
-            
-
-
-                this.add.rectangle(x*size, y*size, size, size, 0x3C27F5);
-
-            }
-    } 
-    }
+    
     /*this.input.on('pointermove', pointer => {
         let x = pointer.worldX;
         let y = pointer.worldY;
@@ -250,7 +253,7 @@ function create() {
         //this.add.rectangle(worldX, worldY, size, size, 0xff8700);
         //op = updatebridge(grid,gridX,gridY,1);
         //ccount = bridgecap(op);
-
+        upbridge(this);
 
     });
     console.log(grid);
