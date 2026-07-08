@@ -26,7 +26,12 @@ function upbridge(SCENE){
             if(grid[x][y] == "wood"){
                 //alert("test")
                 const size = width/resolution;
-                SCENE.add.rectangle(x*size, y*size, size, size, 0x3C27F5);
+                SCENE.add.rectangle(x*size, y*size, size, size, 0x854900);
+            }
+             if(grid[x][y] == "steel"){
+                //alert("test")
+                const size = width/resolution;
+                SCENE.add.rectangle(x*size, y*size, size, size, 0x7D7D7D);
             }
     } 
     }
