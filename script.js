@@ -1,5 +1,5 @@
-let height = 800
-let width = 800;
+let height = 400;
+let width = 400;
 let resolution = 16
 
 class bpiece{
@@ -19,20 +19,14 @@ class bpiece{
 }
 
 
-function upbridge(this){
+function upbridge(SCENE){
     for(let x=0;x<16;x++){
         for(let y=0;y<16;y++){
             console.log(x,y)
             if(grid[x][y] == "wood"){
                 //alert("test")
-            
                 const size = width/resolution;
-
-            
-
-
-                this.add.rectangle(x*size, y*size, size, size, 0x3C27F5);
-
+                SCENE.add.rectangle(x*size, y*size, size, size, 0x3C27F5);
             }
     } 
     }
@@ -66,6 +60,7 @@ function bridgecap(op){
     let count = 0;
     for(let x = 0;x<resolution;x++){
         for(let y = 0;y<resolution;y++){
+            
             if (op[x][y] == 1){
                 count += 1
             }        
@@ -219,7 +214,7 @@ let cursors;
 let mx;
 let count;
 let my;
-let piece = "block";
+let piece = 1;
 //Physics
 //let weight = 0;
 let breakingpoint = 100;
@@ -237,6 +232,7 @@ function create() {
 
 
     this.input.on('pointerdown', pointer => {
+        //alert(5);
         const size = width/resolution;
 
         const gridX = Math.floor(pointer.worldX / size);
@@ -244,15 +240,26 @@ function create() {
 
         const worldX = gridX * size + size / 2;
         const worldY = gridY * size + size / 2;
-        grid[gridX][gridY] = "wood"
+        if(piece == 1) {
+            grid[gridX][gridY] = "wood" 
+        }
+        if(piece == 2){
+            grid[gridX][gridY] = "steel" 
+        }
+        if(piece == 3){
+            grid[gridX][gridY] = "plastic"
+        }
+        //grid[gridX][gridY] = "wood"
         //this.add.rectangle(worldX, worldY, size, size, 0xff8700);
-        this.matter.add.gameObject(grid[gridX][gridY], { isStatic: true });
+        //this.matter.add.gameObject(grid[gridX][gridY], { isStatic: true });
         grid[gridX][gridY].checked = false;
         grid[gridX][gridY].loadcapacity = 100;
         //alert(grid[gridX][gridY].groupid);
         //this.add.rectangle(worldX, worldY, size, size, 0xff8700);
         //op = updatebridge(grid,gridX,gridY,1);
         //ccount = bridgecap(op);
+        //
+        //window.alert(5);
         upbridge(this);
 
     });
