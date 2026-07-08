@@ -201,7 +201,8 @@ function updatebridge(grid,c,d,id){
     //console.log("S")
 
     //console.log("E")
-   alert(op);
+   //
+   // alert(op);
    // console.log("A")
    return op;
 }
@@ -225,6 +226,7 @@ let piece = 1;
 //let weight = 0;
 let breakingpoint = 100;
 function create() {
+    piece = prompt()
     let op = null;
     
     /*this.input.on('pointermove', pointer => {
