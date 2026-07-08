@@ -1,3 +1,7 @@
+let height = 800
+let width = 800;
+let resolution = 16
+
 class bpiece{
     constructor(obj, type,load) {
         this.type = type;
@@ -23,8 +27,8 @@ Pressure = Force/Area
 
 const config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 800,
+    width: width,
+    height: height,
     backgroundColor: "#ff0000",
 
     physics: {
@@ -42,8 +46,8 @@ const config = {
 };
 function bridgecap(op){
     let count = 0;
-    for(let x = 0;x<8;x++){
-        for(let y = 0;y<8;y++){
+    for(let x = 0;x<resolution;x++){
+        for(let y = 0;y<resolution;y++){
             if (op[x][y] == 1){
                 count += 1
             }        
@@ -59,11 +63,11 @@ function updatebridge(grid,c,d,id){
         grid[a][b].bridgeid = id
     }*/
    console.log(grid)
-    for(let x = 0;x<8;x++){
+    for(let x = 0;x<resolution;x++){
         op.push([]);
     }
-    for(let x = 0;x<8;x++){
-        for(let y = 0;y<8;y++){
+    for(let x = 0;x<resolution;x++){
+        for(let y = 0;y<resolution;y++){
             if (grid[x][y] != 0){
                console.log(grid[x][y].bridgeid,x,y)
                op[x][y] = grid[x][y].bridgeid
@@ -81,8 +85,8 @@ function updatebridge(grid,c,d,id){
             
         }
     }
-    for(let a = 0;a<8;a++){
-        for(let b = 0;b<8;b++){
+    for(let a = 0;a<resolution;a++){
+        for(let b = 0;b<resolution;b++){
             grid[a][b].bridgeid = did
             if (grid[a][b] != 0 && grid[a][b].bridgeid == 1){
                 if (grid[a][b-1] != 0 && grid[a][b-1].checked == false){
@@ -184,9 +188,9 @@ function updatebridge(grid,c,d,id){
 }
 const game = new Phaser.Game(config);
 let grid = [];
-for(let x = 0;x<8;x++){
+for(let x = 0;x<resolution;x++){
     grid.push([]);
-    for(let y = 0;y<8;y++){
+    for(let y = 0;y<resolution;y++){
         grid[x].push(0);
     }
 
@@ -197,6 +201,7 @@ let cursors;
 let mx;
 let count;
 let my;
+let piece = "block";
 //Physics
 //let weight = 0;
 let breakingpoint = 100;
@@ -214,7 +219,7 @@ function create() {
 
 
     this.input.on('pointerdown', pointer => {
-        const size = 100;
+        const size = width/resolution;
 
         const gridX = Math.floor(pointer.worldX / size);
         const gridY = Math.floor(pointer.worldY / size);
@@ -232,11 +237,13 @@ function create() {
 
 
     });
+    console.log(grid);
+
     
     cursors = this.input.keyboard.createCursorKeys();
 
     // Ground
-    //const ground = this.add.rectangle(400, 400, 800, 40, 0x00aa00);
+    //const ground = this.add.rectangle(400, 400, resolution00, 40, 0x00aa00);
     //this.matter.add.gameObject(ground, { isStatic: true });
     //ground.body.label = "bridge";
 
@@ -284,7 +291,23 @@ function update() {
     //console.log(weight);
 
 
+    for(let x=0;x<16,x++;){
+        for(let y=0;y<16,y++;){
+            if(grid[x][y] == 0){
+                alert("test")
+            
+                const size = width/resolution;
 
+                const gridX = Math.floor(pointer.worldX / size);
+                const gridY = Math.floor(pointer.worldY / size);
+
+                const worldX = gridX * size + size / 2;
+                const worldY = gridY * size + size / 2;
+                this.add.rectangle(x*size, y*size, size, size, 0xff8700);
+
+            }
+    } 
+    }
  
 
 
